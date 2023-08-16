@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id='hr_leave_type_form_inherit_sy' model='ir.ui.view'>
+        <field name="name">hr.leave.type.form.inherit.sy</field>
+        <field name="model">hr.leave.type</field>
+        <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[5]" position="after">
+                <field name="is_configurable"/>
+                <field name="is_sick_leave" attrs="{'invisible':[('is_configurable', '=', False)]}"/>
+                <field name="leave_date_from"
+                       attrs="{'invisible':['|', ('is_sick_leave', '=', False), ('is_configurable', '=', False)]}"/>
+                <field name="leave_date_to"
+                       attrs="{'invisible':['|', ('is_sick_leave', '=', False), ('is_configurable', '=', False)]}"/>
+                <field name="allowed_gender" attrs="{'invisible':[('is_configurable', '=', False)]}"/>
+                <field name="marital_status" attrs="{'invisible':[('is_configurable', '=', False)]}"/>
+                <field name="number_of_allowed_days" attrs="{'invisible':[('is_configurable', '=', False)]}"/>
+                <field name="number_of_required_work_days" attrs="{'invisible':[('is_configurable', '=', False)]}"/>
+                <field name="customized_to" attrs="{'invisible':[('is_configurable', '=', False)]}"/>
+                <field name="specified_employees"
+                       attrs="{'invisible': ['|', ('customized_to', '!=', 'employee'), ('is_configurable', '=', False)]}"
+                       widget="many2many_tags"/>
+                <field name="shift_ids"
+                       attrs="{'invisible': ['|', ('customized_to', '!=', 'shift'), ('is_configurable', '=', False)]}"
+                       widget="many2many_tags"/>
+                <field name="is_connected_days" attrs="{'invisible':[('is_configurable', '=', False)]}"/>
+                <field name="include_public_holidays" attrs="{'invisible':['|', ('is_configurable', '=', False), ('is_connected_days', '=', False)]}"/>
+                <field name="is_repeated" attrs="{'invisible':['|', ('is_configurable', '=', False), ('is_sick_leave', '=', True)]}"/>
+                <field name="balance_type"
+                       attrs="{'invisible': ['|', ('is_repeated', '=', False), ('is_configurable', '=', False)]}"/>
+                <field name="apply_pro_rata" attrs="{'invisible':[('is_configurable', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
